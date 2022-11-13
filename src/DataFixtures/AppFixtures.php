@@ -17,6 +17,14 @@ class AppFixtures extends Fixture
     private static function artistesDataGenerator()
     {
         yield ["Pink Floyd", 4, "Rock Progressif"];
+        yield ["Michael Jackson", 1, "Pop"];
+        yield ["AC/DC", 5, "Hard Rock"];
+        yield ["The Rolling Stones", 4, "Rock"];
+        yield ["Miles Davis", 1, "Jazz"];
+        yield ["Beyonce", 1, "RnB"];
+        yield ["Eminem", 1, "Rap"];
+        yield ["Lin Manuel Miranda", 1, "Comedie Musicale"];
+        yield ["The Beatles", 4, "Rock"];
     }
 
     /**
@@ -27,6 +35,13 @@ class AppFixtures extends Fixture
     private static function artisteAlbumsGenerator()
     {
         yield ["Wish you were here", 1975, "Rock Progressif", "Pink Floyd"];
+        yield ["Thriller", 1982, "Pop", "Michael Jackson"];
+        yield ["Bad", 1987, "Pop", "Michael Jackson"];
+        yield ["Dangerous", 1991, "Pop", "Michael Jackson"];
+        yield ["Highway to Hell", 1979, "Hard Rock", "AC/DC"];
+        yield ["Back in Black", 1980, "Hard Rock", "AC/DC"];
+        yield ["Sketches of Spain", 1960, "Jazz", "Miles Davis"];
+        yield ["Kind of Blue", 1959, "Jazz", "Miles Davis"];
     }
 
     public function load(ObjectManager $manager)
