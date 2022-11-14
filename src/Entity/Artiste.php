@@ -44,6 +44,11 @@ class Artiste
         $this->albums = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->Nom;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;

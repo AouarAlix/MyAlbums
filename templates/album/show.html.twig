@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ album.Nom }}{% endblock %}
+
+{% block body %}
+<h1>{{ album.Nom }}</h1>
+
+<p>{{ album.Artiste.getNom }}<br>
+{{ album.Annee }}<br>
+{{ album.Genre }}
+</p>
+
+<a href="{{ path('app_album') }}">Retour</a>
+{% endblock %}

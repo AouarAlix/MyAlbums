@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+<h1>Album index</h1>
+
+<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Artiste</th>
+				<th>Année</th>
+				<th>Genre</th>
+				<th>
+					&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for album in albums %}
+				<tr>
+					<td>
+						{{ album.getId }}
+					</td>
+					<td>
+						{{ album.getNom }}
+					</td>
+                    <td>
+						{{ album.getArtiste.getNom }}
+					</td>
+					<td>
+						{{ album.getAnnee }}
+					</td>
+					<td>
+						{{ album.getGenre }}
+					</td>
+                    <td>
+                        <a href="{{ path('album_show', {'id':album.Id})}}">Show</a>
+                        <a href="{{ path('album_edit', {'id':album.Id})}}">Edit</a>
+                    </td>
+				</tr>
+            {% endfor %}
+        </tbody>
+
+{% endblock %} {# body #}
