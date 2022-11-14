@@ -1,0 +1,11 @@
+bootstrap_menu:
+    menus:
+        main:
+            items:
+                albums:
+                    label: "Liste des Albums"
+                    route: "app_album"
+                artiste:
+                    label: "Liste des Artistes"
+                    route: "app_artiste_index"
+
