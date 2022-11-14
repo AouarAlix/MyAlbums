@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AlbumRepository;
 
 /**
  * @Route("/artiste")
@@ -49,10 +50,15 @@ class ArtisteController extends AbstractController
     /**
      * @Route("/{id}", name="app_artiste_show", methods={"GET"})
      */
-    public function show(Artiste $artiste): Response
+    public function show(Artiste $artiste, AlbumRepository $albumRepo): Response
     {
+        $albums = [];
+        foreach ( $artiste->getAlbums() as $albumId ) {
+            array_push($albums, $albumRepo->find($albumId));
+        }
         return $this->render('artiste/show.html.twig', [
             'artiste' => $artiste,
+            'albums' => $albums,
         ]);
     }
 

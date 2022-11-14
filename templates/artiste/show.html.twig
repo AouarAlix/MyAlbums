@@ -23,6 +23,14 @@
                 <th>Genre</th>
                 <td>{{ artiste.Genre }}</td>
             </tr>
+            <tr>
+                <th>Albums</th>
+                <td>
+                    {% for album in albums %}
+                    <a href="{{ path('album_show', {'id': album.getId }) }}" >{{ album }}</a><br>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
