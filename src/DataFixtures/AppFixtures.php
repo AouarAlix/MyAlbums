@@ -52,8 +52,8 @@ class AppFixtures extends Fixture
      */
     private static function bibliothequeGenerator()
     {
-        yield ["Rock'n roll", "Mon repretoire de rock préféré !", "Clément", ["Back in Black", "Highway to Hell", "Wish you were here"]];
-        yield ["Le king", "J'adore Michael Jackson", "Alix", ["Dangerous", "Thriller"]];
+        yield ["Rock'n roll", "Mon repretoire de rock préféré !", "Pierre", ["Back in Black", "Highway to Hell", "Wish you were here"]];
+        yield ["Le king", "J'adore Michael Jackson", "Paul", ["Dangerous", "Thriller"]];
         
     }
 

@@ -2,7 +2,7 @@
 
 {% block title %}Bibliotheque{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Bibliotheque</h1>
 
     <table class="table">
@@ -22,6 +22,14 @@
             <tr>
                 <th>Proprietaire</th>
                 <td>{{ bibliotheque.proprietaire }}</td>
+            </tr>
+            <tr>
+                <th>Albums</th>
+                <td>
+                    {% for album in bibliotheque.albums %}
+                    <a href="{{ path("album_show", {"id": album.id}) }}">{{ album }}</a><br>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>

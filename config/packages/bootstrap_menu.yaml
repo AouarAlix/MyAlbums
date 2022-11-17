@@ -8,4 +8,7 @@ bootstrap_menu:
                 artiste:
                     label: "Liste des Artistes"
                     route: "app_artiste_index"
+                biblio:
+                   label: "Bibliothèques"
+                   route: "app_bibliotheque_index"
 
