@@ -80,7 +80,11 @@ class AlbumController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
+                $imagefile = $album->getImageFile();
+                if($imagefile) {
+                    $mimetype = $imagefile->getMimeType();
+                    $album->setContentType($mimetype);
+                }
                 $albumRepository->add($album, true);
 
                 $this->addFlash('success','OK');

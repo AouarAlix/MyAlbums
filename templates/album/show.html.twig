@@ -9,6 +9,26 @@
 {{ album.Annee }}<br>
 {{ album.Genre }}
 </p>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ album.Nom }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ album.Annee }}</td>
+        </tr>
+        <tr>
+            <th>NbMembres</th>
+            <td>{{ album.Genre }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><img src="{{ vich_uploader_asset(album, 'imageFile') }}"/></td>
+        </tr>
+    </tbody>
+</table>
 
 <a href="{{ path('app_album') }}">Retour</a>
 {% endblock %}

@@ -19,6 +19,8 @@ class AlbumType extends AbstractType
             ->add('Artiste')
             ->add('Annee')
             ->add('Genre')
+            ->add('imageName', TextType::class,  ['disabled' => true])
+            ->add('imageFile', VichImageType::class, ['required' => false])
         ;
     }
 
