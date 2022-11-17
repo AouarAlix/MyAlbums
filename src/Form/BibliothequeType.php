@@ -15,6 +15,7 @@ class BibliothequeType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('proprietaire')
+            ->add('albums')
         ;
     }
 
