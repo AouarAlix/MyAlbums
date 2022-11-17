@@ -29,15 +29,17 @@ class Bibliotheque
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $proprietaire;
-
+   
     /**
      * @ORM\OneToMany(targetEntity=Album::class, mappedBy="bibliotheque")
      */
     private $albums;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bibliotheques")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $proprietaire;
 
     public function __construct()
     {
@@ -73,17 +75,7 @@ class Bibliotheque
         return $this;
     }
 
-    public function getProprietaire(): ?string
-    {
-        return $this->proprietaire;
-    }
-
-    public function setProprietaire(string $proprietaire): self
-    {
-        $this->proprietaire = $proprietaire;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Album>
@@ -111,6 +103,18 @@ class Bibliotheque
                 $album->setBibliotheque(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProprietaire(): ?User
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?User $proprietaire): self
+    {
+        $this->proprietaire = $proprietaire;
 
         return $this;
     }

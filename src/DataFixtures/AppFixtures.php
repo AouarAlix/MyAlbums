@@ -8,9 +8,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Album;
 use App\Entity\Bibliotheque;
+use App\Entity\User;
+use App\DataFixtures\UserFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * Generates initialization data for artistes : [Nom, NbMembres, Genre]
@@ -52,8 +55,8 @@ class AppFixtures extends Fixture
      */
     private static function bibliothequeGenerator()
     {
-        yield ["Rock'n roll", "Mon repretoire de rock préféré !", "Pierre", ["Back in Black", "Highway to Hell", "Wish you were here"]];
-        yield ["Le king", "J'adore Michael Jackson", "Paul", ["Dangerous", "Thriller"]];
+        yield ["Rock'n roll", "Mon repretoire de rock préféré !", "pierre@localhost", ["Back in Black", "Highway to Hell", "Wish you were here"]];
+        yield ["Le king", "J'adore Michael Jackson", "paul@localhost", ["Dangerous", "Thriller"]];
         
     }
 
@@ -61,6 +64,7 @@ class AppFixtures extends Fixture
     {
         $artisteRepo = $manager->getRepository(artiste::class);
         $albumRepo = $manager->getRepository(album::class);
+        $userRepo = $manager->getRepository(user::class);
 
         foreach (self::artistesDataGenerator() as [$nom, $nbMembres, $genre] ) {
             $artiste = new artiste();
@@ -85,12 +89,12 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        foreach (self::bibliothequeGenerator() as [$nom, $description, $proprietaire, $albums_nom])
+        foreach (self::bibliothequeGenerator() as [$nom, $description, $proprietaire_email, $albums_nom])
         {
             $biblio = new Bibliotheque();
             $biblio->setNom($nom);
             $biblio->setDescription($description);
-            $biblio->setProprietaire($proprietaire);
+            $biblio->setProprietaire($userRepo->findOneBy(['email' => $proprietaire_email]));
             foreach ($albums_nom as $album_nom){
                 $biblio->addAlbum($albumRepo->findOneBy(['Nom' => $album_nom]));
             }
@@ -99,5 +103,12 @@ class AppFixtures extends Fixture
             $manager->persist($album);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Bibliotheque::class, mappedBy="proprietaire")
+     */
+    private $bibliotheques;
+
+    public function __construct()
+    {
+        $this->bibliotheques = new ArrayCollection();
+    }
+
+    public function __toString(): ?string
+    {
+        return $this->email;
+    }
 
     public function getId(): ?int
     {
@@ -122,5 +139,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Bibliotheque>
+     */
+    public function getBibliotheques(): Collection
+    {
+        return $this->bibliotheques;
+    }
+
+    public function addBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if (!$this->bibliotheques->contains($bibliotheque)) {
+            $this->bibliotheques[] = $bibliotheque;
+            $bibliotheque->setProprietaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if ($this->bibliotheques->removeElement($bibliotheque)) {
+            // set the owning side to null (unless already changed)
+            if ($bibliotheque->getProprietaire() === $this) {
+                $bibliotheque->setProprietaire(null);
+            }
+        }
+
+        return $this;
     }
 }

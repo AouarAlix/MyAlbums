@@ -4,7 +4,8 @@
 
 {% block main %}
 {% if is_granted('ROLE_USER') %}
-<h1>Bonjour {{ user.nom }} !</h1>
+<h1>Bonjour {{ app.user }} !</h1>
+<a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
 {% else %}
 <h1>Vous n'êtes pas connecté</h1>
 <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
