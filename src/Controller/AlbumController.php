@@ -24,7 +24,8 @@ class AlbumController extends AbstractController
             'albums' => $albums,
         ]);
     }
-        /**
+
+    /**
      * Show a album
      * 
      * @Route("/album/{id}", name="album_show", requirements={"id"="\d+"})
