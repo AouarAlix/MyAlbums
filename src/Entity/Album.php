@@ -37,6 +37,11 @@ class Album
      */
     private $Artiste;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bibliotheque::class, inversedBy="albums")
+     */
+    private $bibliotheque;
+
     public function __toString(): ?string
     {
         return $this->Nom;
@@ -91,6 +96,18 @@ class Album
     public function setArtiste(?Artiste $Artiste): self
     {
         $this->Artiste = $Artiste;
+
+        return $this;
+    }
+
+    public function getBibliotheque(): ?Bibliotheque
+    {
+        return $this->bibliotheque;
+    }
+
+    public function setBibliotheque(?Bibliotheque $bibliotheque): self
+    {
+        $this->bibliotheque = $bibliotheque;
 
         return $this;
     }

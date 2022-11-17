@@ -7,6 +7,8 @@ use App\Repository\ArtisteRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Album;
+use App\Entity\Bibliotheque;
+
 
 class AppFixtures extends Fixture
 {
@@ -44,9 +46,21 @@ class AppFixtures extends Fixture
         yield ["Kind of Blue", 1959, "Jazz", "Miles Davis"];
     }
 
+    /**
+     *
+     * @return \\Generator
+     */
+    private static function bibliothequeGenerator()
+    {
+        yield ["Rock'n roll", "Mon repretoire de rock préféré !", "Clément", ["Back in Black", "Highway to Hell", "Wish you were here"]];
+        yield ["Le king", "J'adore Michael Jackson", "Alix", ["Dangerous", "Thriller"]];
+        
+    }
+
     public function load(ObjectManager $manager)
     {
         $artisteRepo = $manager->getRepository(artiste::class);
+        $albumRepo = $manager->getRepository(album::class);
 
         foreach (self::artistesDataGenerator() as [$nom, $nbMembres, $genre] ) {
             $artiste = new artiste();
@@ -67,6 +81,21 @@ class AppFixtures extends Fixture
             $artiste->addAlbum($album);
             // there's a cascade persist on fim-albums which avoids persisting down the relation
             $manager->persist($artiste);
+            $manager->persist($album);
+        }
+        $manager->flush();
+
+        foreach (self::bibliothequeGenerator() as [$nom, $description, $proprietaire, $albums_nom])
+        {
+            $biblio = new Bibliotheque();
+            $biblio->setNom($nom);
+            $biblio->setDescription($description);
+            $biblio->setProprietaire($proprietaire);
+            foreach ($albums_nom as $album_nom){
+                $biblio->addAlbum($albumRepo->findOneBy(['Nom' => $album_nom]));
+            }
+            // there's a cascade persist on fim-albums which avoids persisting down the relation
+            $manager->persist($biblio);
             $manager->persist($album);
         }
         $manager->flush();
